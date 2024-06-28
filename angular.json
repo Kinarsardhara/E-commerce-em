@@ -5,18 +5,24 @@
   "projects": {
     "bigbasket_ecommerce_angular": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/bigbasket_ecommerce_angular",
+            "outputPath": "dist/e-commerce",
             "index": "src/index.html",
-            "browser": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
@@ -40,21 +46,24 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "8mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "200kb",
+                  "maximumError": "500kb"
                 }
               ],
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -63,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "bigbasket_ecommerce_angular:build:production"
+              "browserTarget": "bigbasket_ecommerce_angular:build:production"
             },
             "development": {
-              "buildTarget": "bigbasket_ecommerce_angular:build:development"
+              "browserTarget": "bigbasket_ecommerce_angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "bigbasket_ecommerce_angular:build"
+            "browserTarget": "bigbasket_ecommerce_angular:build"
           }
         },
         "test": {
